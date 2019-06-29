@@ -1,4 +1,4 @@
-[![CircleCI_Badge](https://img.shields.io/circleci/build/github/LozanoMatheus/ansible_molecule/CircleCI.svg?style=plastic)](https://circleci.com/gh/LozanoMatheus/ansible_molecule/tree/CircleCI)
+[![CircleCI_Badge](https://img.shields.io/circleci/build/github/LozanoMatheus/ansible_molecule/master.svg?style=plastic)](https://circleci.com/gh/LozanoMatheus/ansible_molecule/tree/master)
 
 # Vagrant box for Molecule - Testing Ansible roles
 
