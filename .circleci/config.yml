@@ -1,0 +1,66 @@
+version: 2.1
+executors:
+  vagrat_executor:
+    machine:
+      image: circleci/classic:latest
+    environment:
+      VAGRANT_VERSION: 2.2.4
+      LINUX_RELEASE: trusty
+      VAGRANT_DISABLE_VBOXSYMLINKCREATE: 1
+jobs:
+  build:
+    executor: vagrat_executor
+    steps:
+      - checkout
+      - run:
+          name: Installing the Vagrant and Virtualbox
+          command: |
+            set -x
+            cd ./scripts/
+            . circleci_prereqs.sh
+            install_virtualbox
+            install_vagrant
+      - run:
+          name: Building the Vagrant box
+          command: |
+            set -x
+            cd ./scripts/
+            . vagrant_box_release.sh
+            build_vagrant_box
+      - persist_to_workspace:
+          root: .
+          paths:
+          - scripts/vagrant_box_release.sh
+          - scripts/circleci_prereqs.sh
+          - molecule.box
+          - release_version
+
+  release:
+    executor: vagrat_executor
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Installing Vagrant
+          command: |
+            cd ./scripts/
+            . circleci_prereqs.sh
+            install_vagrant
+      - run:
+          name: Publishing the Vagrant box
+          command: |
+            set -x
+            cd ./scripts/
+            . vagrant_box_release.sh
+            publish_vagrant_box
+
+workflows:
+  version: 2
+  build_and_release:
+    jobs:
+      - build:
+          context: Vagrant
+      - release:
+          requires:
+            - build
+          context: Vagrant

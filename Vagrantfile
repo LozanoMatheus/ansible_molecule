@@ -10,7 +10,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision :shell do |vm|
     vm.name = 'Prereqs'
-    vm.path = provision_script_path('prereqs')
+    vm.path = provision_script_path('vagrantfile_prereqs')
   end
 
   config.vm.synced_folder '.', '/vagrant', disabled: true
