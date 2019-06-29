@@ -6,10 +6,6 @@ declare -r  BOX_FILE="${PROJECT_BASEDIR}/molecule.box"
 declare     TMP_FILE="/tmp/$(basename "${BASH_SOURCE[0]//.sh/}")_tmp"
 declare     LOG_FILE="/tmp/$(basename "${BASH_SOURCE[0]//.sh/}")_$(date +'%Y%m%d').log"
 
-pwd
-ls -lha ./ ../
-sudo find / -iname molecule.box
-
 function log_msg() {
   echo "$(date +'%Y-%m-%d %T.%6N')" $@ | tee -a "${LOG_FILE}"
 }
