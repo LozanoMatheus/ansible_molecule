@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+declare -r BRANCH_NAME="$(git symbolic-ref --short HEAD)"
+declare -r BRANCH_BADGE="[![CircleCI_Badge](https://img.shields.io/circleci/build/github/LozanoMatheus/ansible_molecule/${BRANCH_NAME}.svg?style=plastic)](https://circleci.com/gh/LozanoMatheus/ansible_molecule/tree/${BRANCH_NAME})"
+
+git reset README.md
+echo "Changing the Branch Badge"
+declare -r TMP_MD="$(sed "s#.*CircleCI_Badge.*#${BRANCH_BADGE}#" README.md)"
+echo "${TMP_MD}" > README.md
+[[ $? -eq 0 ]] && echo "Changing OK" || echo "Changing NOK"
+git add README.md
