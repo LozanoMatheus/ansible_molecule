@@ -11,6 +11,7 @@ function log_msg() {
 }
 
 function finish_him() {
+  set +xv
   ## Cleaning yum tmp files
   log_msg "Cleaning tmp files"
   vagrant box list | awk -F' ' '{print $1}' | xargs -I{} vagrant box remove {} --all --force 2>&1 /dev/null || true
@@ -37,7 +38,6 @@ function build_vagrant_box() {
 
 function publish_vagrant_box() {
   log_msg "Publishing the Vagrant Box to https://app.vagrantup.com/lozanomatheus/boxes/molecule"
-  set -x
-  [[ -f "${BOX_FILE}" ]] && vagrant cloud publish lozanomatheus/molecule "${RELEASE_VERSION// /}" virtualbox "${BOX_FILE}" -d "Molecule to test Ansible Roles" --version-description "Installing Molecule 2.20.1 and all dependencies" --force --release --short-description "Molecule to test Ansible Roles"
+    [[ -f "${BOX_FILE}" ]] && { set -xv ; vagrant cloud publish lozanomatheus/molecule "${RELEASE_VERSION// /}" virtualbox "${BOX_FILE}" -d "Molecule to test Ansible Roles" --version-description "Installing Molecule 2.20.1 and all dependencies" --force --release --short-description "Molecule to test Ansible Roles" ; }
   rm -f "${BOX_FILE}"
 }
