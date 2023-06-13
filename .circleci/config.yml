@@ -7,6 +7,7 @@ executors:
       VAGRANT_VERSION: 2.2.4
       LINUX_RELEASE: trusty
       VAGRANT_DISABLE_VBOXSYMLINKCREATE: 1
+
 jobs:
   build:
     executor: vagrat_executor
