@@ -2,7 +2,7 @@ version: 2.1
 executors:
   vagrat_executor:
     machine:
-      image: circleci/classic:latest
+      image: ubuntu-2004:2023.04.2
     environment:
       VAGRANT_VERSION: 2.2.4
       LINUX_RELEASE: trusty
