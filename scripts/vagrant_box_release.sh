@@ -12,6 +12,8 @@ function log_msg() {
 
 function finish_him() {
   ## Cleaning yum tmp files
+  log_msg "List boxes"
+  vagrant box list
   log_msg "Cleaning tmp files"
   set -vx
   vagrant box list | awk -F' ' '{print $1}' | xargs -I{} vagrant box remove {} --all --force || true
