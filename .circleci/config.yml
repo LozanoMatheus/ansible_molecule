@@ -2,7 +2,7 @@ version: 2.1
 executors:
   vagrat_executor:
     machine:
-      image: ubuntu-2004:2023.04.2
+      image: ubuntu-2204:2023.04.2
     environment:
       VAGRANT_VERSION: 2.2.4
       LINUX_RELEASE: trusty
@@ -16,6 +16,7 @@ jobs:
       - run:
           name: Installing the Vagrant and Virtualbox
           command: |
+            cat /etc/*release
             cd ./scripts/
             . circleci_prereqs.sh
             install_virtualbox
@@ -29,10 +30,10 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-          - scripts/vagrant_box_release.sh
-          - scripts/circleci_prereqs.sh
-          - molecule.box
-          - release_version
+            - scripts/vagrant_box_release.sh
+            - scripts/circleci_prereqs.sh
+            - molecule.box
+            - release_version
 
   release:
     executor: vagrat_executor
