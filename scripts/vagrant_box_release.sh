@@ -25,7 +25,7 @@ trap finish_him EXIT SIGHUP SIGINT SIGQUIT SIGABRT SIGKILL SIGTERM
 
 function build_vagrant_box() {
   [[ ! -z "${VAGRANT_CLOUD_TOKEN// /}" ]] || log_msg "Variable VAGRANT_CLOUD_TOKEN is not defined. Setup the variable or run the command: vagrant cloud auth login ..."
-  vagrant up || true
+  vagrant up --provider=virtualbox || true
   log_msg "Getting all VirtualBox VMs"
   VBoxManage list vms | awk -F\" 'END {print $2}' | tee "${TMP_FILE}"
   cat ${TMP_FILE}
