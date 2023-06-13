@@ -4,8 +4,8 @@ executors:
     machine:
       image: ubuntu-2204:2023.04.2
     environment:
-      VAGRANT_VERSION: 2.2.4
-      LINUX_RELEASE: focal
+      VAGRANT_VERSION: 2.3.6
+      LINUX_RELEASE: jammy
       VAGRANT_DISABLE_VBOXSYMLINKCREATE: 1
 
 jobs:
