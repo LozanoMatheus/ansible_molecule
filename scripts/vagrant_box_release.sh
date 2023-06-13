@@ -11,26 +11,20 @@ function log_msg() {
 }
 
 function finish_him() {
-  ## Cleaning yum tmp files
   log_msg "Cleaning tmp files"
   vagrant box list | awk -F' ' '{print $1}' | xargs -I{} vagrant box remove {} --all --force || true
   sleep 5s
   
   log_msg "Shutting down the VM"
-  set -vx
   VBoxManage controlvm "$(<${TMP_FILE})" poweroff || true
-  set +vx
   sleep 5s
   
   log_msg "Cleaning up the VM"
-  set -vx
   VBoxManage unregistervm "$(<${TMP_FILE})" --delete || true
-  set +vx
   sleep 5s
   
   log_msg "Cleaning up local files"
   rm -rf .vagrant "${TMP_FILE}" || true
-  set +vx
 }
 trap finish_him EXIT SIGHUP SIGINT SIGQUIT SIGABRT SIGKILL SIGTERM
 
@@ -39,9 +33,6 @@ function build_vagrant_box() {
   vagrant up --provider=virtualbox || true
   log_msg "Getting all VirtualBox VMs"
   VBoxManage list vms | awk -F\" 'END {print $2}' | tee "${TMP_FILE}"
-  cat ${TMP_FILE}
-  log_msg "Listing the VMs"
-  VBoxManage list vms
   log_msg "Generating a Vagrant box file. The file name is: ${BOX_FILE}"
   [[ ! -f "${BOX_FILE}" ]] && vagrant package --output "${BOX_FILE}"
 }

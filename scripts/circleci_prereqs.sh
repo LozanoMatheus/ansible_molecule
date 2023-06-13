@@ -7,7 +7,6 @@ function log_msg() {
 }
 
 function finish_him() {
-  ## Cleaning yum tmp files
   log_msg "Cleaning tmp files"
   rm -f vagrant_${VAGRANT_VERSION}_x86_64.deb
   sudo apt clean
