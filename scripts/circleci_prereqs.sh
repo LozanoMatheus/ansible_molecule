@@ -17,6 +17,7 @@ function finish_him() {
 trap finish_him EXIT SIGHUP SIGINT SIGQUIT SIGABRT SIGKILL SIGTERM
 
 function install_virtualbox() {
+  set -x
   log_msg "VirtualBox - Install"
   sudo apt-get update -y &> /dev/null
   sudo apt-get install -y linux-headers-$(uname -r) &> /dev/null
