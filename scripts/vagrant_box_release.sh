@@ -28,6 +28,9 @@ function build_vagrant_box() {
   vagrant up || true
   log_msg "Getting all VirtualBox VMs"
   VBoxManage list vms | awk -F\" 'END {print $2}' | tee "${TMP_FILE}"
+  cat ${TMP_FILE}
+  log_msg "Listing the VMs"
+  VBoxManage list vms
   log_msg "Generating a Vagrant box file. The file name is: ${BOX_FILE}"
   [[ ! -f "${BOX_FILE}" ]] && vagrant package --output "${BOX_FILE}"
 }
