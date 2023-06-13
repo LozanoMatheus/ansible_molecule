@@ -14,19 +14,19 @@ function finish_him() {
   ## Cleaning yum tmp files
   log_msg "Cleaning tmp files"
   set -vx
-  vagrant box list | awk -F' ' '{print $1}' | xargs -I{} vagrant box remove {} --all --force 2>&1 /dev/null || true
+  vagrant box list | awk -F' ' '{print $1}' | xargs -I{} vagrant box remove {} --all --force || true
   set +vx
   sleep 5s
   
   log_msg "Shutting down the VM"
   set -vx
-  VBoxManage controlvm poweroff "$(<${TMP_FILE})" &> /dev/null || true
+  VBoxManage controlvm poweroff "$(<${TMP_FILE})" || true
   set +vx
   sleep 5s
   
   log_msg "Cleaning up the VM"
   set -vx
-  VBoxManage unregistervm "$(<${TMP_FILE})" --delete 2>&1 /dev/null || true
+  VBoxManage unregistervm "$(<${TMP_FILE})" --delete || true
   set +vx
   sleep 5s
   
