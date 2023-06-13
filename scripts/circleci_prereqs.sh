@@ -19,13 +19,13 @@ trap finish_him EXIT SIGHUP SIGINT SIGQUIT SIGABRT SIGKILL SIGTERM
 function install_virtualbox() {
   set -x
   log_msg "VirtualBox - Install"
-  sudo apt-get update -y &> /dev/null
-  sudo apt-get install -y linux-headers-$(uname -r) &> /dev/null
+  sudo apt-get update -y
+  sudo apt-get install -y linux-headers-$(uname -r)
   echo "deb [arch=amd64 signed-by=/usr/share/keyrings/oracle-virtualbox-2016.gpg] https://download.virtualbox.org/virtualbox/debian \"${LINUX_RELEASE}\" contrib" | sudo tee -a /etc/apt/sources.list
   wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo gpg --dearmor --yes --output /usr/share/keyrings/oracle-virtualbox-2016.gpg
   wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo gpg --dearmor --yes --output /usr/share/keyrings/oracle-virtualbox-2016.gpg
-  sudo apt-get update -y &> /dev/null
-  sudo apt-get install -y virtualbox-6.1 &> /dev/null
+  sudo apt-get update -y
+  sudo apt-get install -y virtualbox-6.1
   log_msg "VirtualBox version is $(VBoxManage --version)"
 }
 
