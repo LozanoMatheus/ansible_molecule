@@ -5,7 +5,7 @@ executors:
       image: ubuntu-2204:2023.04.2
     environment:
       VAGRANT_VERSION: 2.3.6
-      LINUX_RELEASE: jammy
+      LINUX_RELEASE: focal
       VAGRANT_DISABLE_VBOXSYMLINKCREATE: 1
 
 jobs:
@@ -17,6 +17,8 @@ jobs:
           name: Installing the Vagrant and Virtualbox
           command: |
             cat /etc/*release
+            uname -r
+            exit 1
             cd ./scripts/
             . circleci_prereqs.sh
             install_virtualbox
